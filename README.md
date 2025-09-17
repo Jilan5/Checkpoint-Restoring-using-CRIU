@@ -124,9 +124,10 @@ During `criu restore`:
 First, install CRIU:
 ```bash
 # Ubuntu/Debian
-sudo apt-get install criu
-
-# Or build from source if not available
+# Install CRIU
+add-apt-repository ppa:criu/ppa -y
+apt update -y
+apt install criu -y
 ```
 
 ### Step 1: Create the Counter Program
