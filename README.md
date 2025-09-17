@@ -128,9 +128,9 @@ First, install CRIU:
 ```bash
 # Ubuntu/Debian
 # Install CRIU
-add-apt-repository ppa:criu/ppa -y
-apt update -y
-apt install criu -y
+sudo add-apt-repository ppa:criu/ppa -y
+sudo apt update -y
+sudo apt install criu -y
 
 # Verify installation
 criu --version
