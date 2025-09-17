@@ -164,6 +164,7 @@ chmod +x counter.py
 ./counter.py &
 ```
 Note the PID (let's say it's 12345).
+<img width="1465" height="523" alt="image" src="https://github.com/user-attachments/assets/b3f3db70-db44-4460-b7bb-1335196cf0aa" />
 
 2. **Open a new terminal window/tab side by side** to perform checkpoint and restore operations while keeping the original terminal for monitoring the counter output.
 
@@ -177,6 +178,8 @@ sudo criu dump -t 12345 -D checkpoint_dir -v4 --shell-job
 ```
 
 The process will be frozen and its state saved to `checkpoint_dir`.
+<img width="1465" height="582" alt="image" src="https://github.com/user-attachments/assets/c933af45-59ae-45ea-9815-a9df2d77f6d3" />
+
 
 ### Step 3: Restore the Process
 
@@ -187,6 +190,7 @@ sudo criu restore -D checkpoint_dir -v4 --shell-job
 ```
 
 The counter will resume from exactly where it was checkpointed, continuing with the same count value!
+<img width="1465" height="523" alt="image" src="https://github.com/user-attachments/assets/676e58bf-6940-4030-846d-855d8c7f3779" />
 
 ### What Happened?
 
