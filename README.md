@@ -128,6 +128,10 @@ First, install CRIU:
 add-apt-repository ppa:criu/ppa -y
 apt update -y
 apt install criu -y
+
+# Verify installation
+criu --version
+criu check
 ```
 
 ### Step 1: Create the Counter Program
@@ -151,8 +155,6 @@ def main():
 if __name__ == "__main__":
     main()
 ```
-
-
 
 ### Step 2: Run and Checkpoint
 
