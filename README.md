@@ -1,6 +1,6 @@
 # Checkpoint/Restore (C/R): Saving and Resuming Program State
 
-## What is Checkpoint/Restore?
+## What is Checkpoint/Restore:
 
 Checkpoint/Restore (C/R) is a technique that allows you to save the complete state of a running process to disk (checkpoint) and later resume it from exactly where it left off (restore). Think of it like the save/load feature in video games, but for any program.
 
@@ -10,6 +10,7 @@ When you checkpoint a process, the system captures:
 - Open files and network connections
 - Process hierarchy and relationships
 - Current execution point
+<img width="1222" height="782" alt="CR 2 drawio" src="https://github.com/user-attachments/assets/1ac693f2-acf7-4a97-b1a0-fa7ab8d53d17" />
 
 ## Why Do We Need C/R?
 
@@ -91,6 +92,7 @@ checkpoint_dir/
 ├── fs-1234.img          # Filesystem info (cwd, root)
 └── stats-dump           # Checkpoint statistics
 ```
+<img width="1081" height="721" alt="CRIU internals drawio" src="https://github.com/user-attachments/assets/57b38392-6304-4047-9e11-ced4eeb07f2c" />
 
 ### Restoration Process
 
@@ -111,6 +113,7 @@ During `criu restore`:
 4. **CPU State Restoration**: Use `ptrace(PTRACE_SETREGS)` to restore all registers
 
 5. **Resume Execution**: The process continues from the exact instruction where it was checkpointed
+<img width="821" height="551" alt="criu restore drawio" src="https://github.com/user-attachments/assets/9e150c77-d94a-4dc3-9362-024328b241b3" />
 
 ### Key Technical Challenges CRIU Solves
 
