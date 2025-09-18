@@ -208,7 +208,10 @@ Note the PID (let's say it's 12345).
 
 2. **Open a new terminal window/tab side by side** to perform checkpoint and restore operations while keeping the original terminal for monitoring the counter output.
 
-3. **In the new terminal, let the counter run for a few iterations, then checkpoint:**
+3. **In the new terminal, SSH into the EC2 again, then checkpoint:**
+```bash
+ssh -i jilan-key-new.pem ubuntu@<EC2_PUBLIC_IP>
+```
 ```bash
 # Create directory for checkpoint files
 mkdir checkpoint_dir
@@ -220,9 +223,17 @@ sudo criu dump -t 12345 -D checkpoint_dir -v4 --shell-job
 The process will be frozen and its state saved to `checkpoint_dir`.
 
 <img width="1465" height="523" alt="image" src="https://github.com/user-attachments/assets/676e58bf-6940-4030-846d-855d8c7f3779" />
+### Step 3: Examine Checkpoint Files
 
+Explore the generated checkpoint files to understand what CRIU captured:
+```bash
+ls -la checkpoint_dir/
+file checkpoint_dir/*
+```
 
-### Step 3: Restore the Process
+You'll see various `.img` files containing different aspects of the process state.
+
+### Step 4: Restore the Process
 
 To restore the process:
 ```bash
