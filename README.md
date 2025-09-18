@@ -329,13 +329,14 @@ ec2_instance = aws.ec2.Instance("criu-docker-instance",
 
 # Export outputs
 pulumi.export("ec2_public_ip", ec2_instance.public_ip)
-pulumi.export("ssh_connection", pulumi.Output.concat("ssh -i jilan-key.pem ubuntu@", ec2_instance.public_ip))
+pulumi.export("ssh_connection", pulumi.Output.concat("ssh -i jilan-key-new.pem ubuntu@", ec2_instance.public_ip))
 ```
 Build the aws Infrastructure:
 ```bash
 pulumi up --yes
 cd ..
 ```
+<img width="1480" height="546" alt="image" src="https://github.com/user-attachments/assets/9e5e5eb0-7bbb-49e8-95ef-8a93e5d92a4f" />
 
 
 ### Step 4: Connect to EC2 Instance
@@ -356,7 +357,7 @@ The `criu check` command will validate that your system supports all necessary f
 Now that your environment is ready, let's demonstrate CRIU's capabilities with a simple Python counter program.
 ### Step 1: Create the Counter Program
 
-Create `counter.py`:
+Create `counter.py` using Nano editor:
 
 ```python
 #!/usr/bin/env python3
@@ -384,7 +385,7 @@ chmod +x counter.py
 ./counter.py &
 ```
 Note the PID (let's say it's 12345).
-<img width="1465" height="523" alt="image" src="https://github.com/user-attachments/assets/b3f3db70-db44-4460-b7bb-1335196cf0aa" />
+<img width="1480" height="546" alt="image" src="https://github.com/user-attachments/assets/1d58b806-de5f-4554-818a-b9faed9c53e5" />
 
 2. **Open a new terminal window/tab side by side** to perform checkpoint and restore operations while keeping the original terminal for monitoring the counter output.
 
@@ -402,7 +403,8 @@ sudo criu dump -t 12345 -D checkpoint_dir -v4 --shell-job
 
 The process will be frozen and its state saved to `checkpoint_dir`.
 
-<img width="1465" height="523" alt="image" src="https://github.com/user-attachments/assets/676e58bf-6940-4030-846d-855d8c7f3779" />
+<img width="1480" height="546" alt="image" src="https://github.com/user-attachments/assets/0cbeb340-eeb3-4194-a0cf-743564298890" />
+
 ### Step 3: Examine Checkpoint Files
 
 Explore the generated checkpoint files to understand what CRIU captured:
@@ -412,6 +414,7 @@ file checkpoint_dir/*
 ```
 
 You'll see various `.img` files containing different aspects of the process state.
+<img width="1480" height="546" alt="image" src="https://github.com/user-attachments/assets/4105b00d-2ef7-46e2-8edc-b77af52d3e9a" />
 
 ### Step 4: Restore the Process
 
@@ -422,8 +425,7 @@ sudo criu restore -D checkpoint_dir -v4 --shell-job
 ```
 
 The counter will resume from exactly where it was checkpointed, continuing with the same count value!
-
-<img width="1465" height="582" alt="image" src="https://github.com/user-attachments/assets/c933af45-59ae-45ea-9815-a9df2d77f6d3" />
+<img width="1480" height="546" alt="image" src="https://github.com/user-attachments/assets/db7d4ef9-54e9-42dd-bf00-fb52d77c4267" />
 
 ### What Happened?
 
