@@ -152,9 +152,13 @@ chmod 400 jilan-key-new.pem
 ### Step 3: Deploy Infrastructure with Pulumi
 Create a new directory for your infrastructure code and save the provided Pulumi Python script as `__main__.py`. Then deploy:
 ```bash
+mkdir criu-pulumi
+cd criu-pulumi
+
 pulumi new aws-python
 # Replace the generated __main__.py with the provided Pulumi code in the REPO
 pulumi up --yes
+cd ..
 ```
 
 
