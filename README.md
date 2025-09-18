@@ -6,7 +6,6 @@ This lab introduces Checkpoint/Restore (C/R) technology using CRIU - a powerful 
 ## Lab Objectives
 - Understand the fundamental concepts of checkpoint/restore technology
 - Learn how CRIU works internally to capture and restore process state
-- Explore real-world use cases including fault tolerance and server maintenance
 - Practice checkpointing and restoring a running Python process
 - Analyze the files generated during checkpoint operations
 - Experience seamless process migration and state preservation
@@ -37,8 +36,7 @@ When you checkpoint a process, the system captures:
 - Open files and network connections
 - Process hierarchy and relationships
 - Current execution point
-<img width="1307" height="842" alt="C_R criu drawio (8)" src="https://github.com/user-attachments/assets/9141b9fc-06cc-4edc-80df-a836af18ab27" />
-
+<img width="1307" height="842" alt="cr1 drawio" src="https://github.com/user-attachments/assets/91949251-0541-44de-8165-97d7d9c10279" />
 
 
 ## CRIU: The Checkpoint/Restore Tool
@@ -105,7 +103,7 @@ checkpoint_dir/
 ├── fs-1234.img          # Filesystem info (cwd, root)
 └── stats-dump           # Checkpoint statistics
 ```
-<img width="1412" height="542" alt="C_R criu drawio (7)" src="https://github.com/user-attachments/assets/07105870-57ff-4803-8b6d-efe7095dbbe9" />
+<img width="1652" height="872" alt="cr2 drawio" src="https://github.com/user-attachments/assets/4ffd5d32-a0d6-4eb7-961b-d2a8f2798a6a" />
 
 ### CRIU Restore Process
 
@@ -126,8 +124,7 @@ During `criu restore`:
 4. **CPU State Restoration**: Use `ptrace(PTRACE_SETREGS)` to restore all registers
 
 5. **Resume Execution**: The process continues from the exact instruction where it was checkpointed
-
-<img width="1509" height="602" alt="C_R criu drawio (6)" src="https://github.com/user-attachments/assets/fe86cef7-4deb-499c-acb4-cf4ba8c5cb6c" />
+<img width="1577" height="683" alt="cr3 drawio" src="https://github.com/user-attachments/assets/34fc325f-183f-48ec-8a28-8e9e26385207" />
 
 ### Key Technical Challenges CRIU Solves
 
