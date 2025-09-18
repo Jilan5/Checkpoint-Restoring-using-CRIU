@@ -37,7 +37,8 @@ When you checkpoint a process, the system captures:
 - Open files and network connections
 - Process hierarchy and relationships
 - Current execution point
-<img width="1307" height="842" alt="C_R criu drawio (5)" src="https://github.com/user-attachments/assets/60e4628b-c6e1-4b26-9621-658e7a88a86c" />
+<img width="1307" height="842" alt="C_R criu drawio (8)" src="https://github.com/user-attachments/assets/9141b9fc-06cc-4edc-80df-a836af18ab27" />
+
 
 
 ## CRIU: The Checkpoint/Restore Tool
