@@ -131,23 +131,49 @@ During `criu restore`:
 - **PID Restoration**: Linux normally assigns PIDs sequentially. CRIU uses `clone()` with `CLONE_NEWPID` to control PID assignment
 - **Memory Sharing**: Handles shared memory segments and memory-mapped files correctly
 - **Resource Dependencies**: Manages complex relationships between processes, files, and network connections
+## Lab Environment Setup: AWS EC2
 
-## Simple Demo: Python Counter with CRIU
+Before we begin the CRIU demonstration, we'll set up an AWS EC2 instance with the necessary tools pre-installed.
 
-### Prerequisites
-First, install CRIU:
+### Step 1: Configure AWS CLI
+Configure your AWS credentials:
 ```bash
-# Ubuntu/Debian
-# Install CRIU
-sudo add-apt-repository ppa:criu/ppa -y
-sudo apt update -y
-sudo apt install criu -y
+aws configure
+```
+Enter your AWS Access Key ID, Secret Access Key, region (recommended: ap-southeast-1), and output format (json).
 
-# Verify installation
+### Step 2: Generate SSH Key Pair
+Create a new key pair for secure access to your EC2 instance:
+```bash
+aws ec2 create-key-pair --key-name jilan-key-new --query 'KeyMaterial' --output text > jilan-key-new.pem
+chmod 400 jilan-key-new.pem
+```
+
+### Step 3: Deploy Infrastructure with Pulumi
+Create a new directory for your infrastructure code and save the provided Pulumi Python script as `__main__.py`. Then deploy:
+```bash
+pulumi new aws-python
+# Replace the generated __main__.py with the provided Pulumi code in the REPO
+pulumi up --yes
+```
+
+
+### Step 4: Connect to EC2 Instance
+Once deployment completes successfully, connect to your instance using the public IP from Pulumi output:
+```bash
+ssh -i jilan-key-new.pem ubuntu@<EC2_PUBLIC_IP>
+```
+
+Verify the installation:
+```bash
 criu --version
 criu check
 ```
 
+The `criu check` command will validate that your system supports all necessary features for checkpoint/restore operations.
+
+## Hands-On Demo: Python Counter with CRIU
+Now that your environment is ready, let's demonstrate CRIU's capabilities with a simple Python counter program.
 ### Step 1: Create the Counter Program
 
 Create `counter.py`:
