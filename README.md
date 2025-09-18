@@ -18,13 +18,7 @@ Imagine you're training a large neural network that takes 3 days to complete. Af
 ### Gaming Server Example
 Consider a game server hosting a 6-hour tournament with 1000 players. If the server needs maintenance, traditional approaches would kick everyone out. With C/R, you can checkpoint the entire game state, perform maintenance, and restore the exact game situation - players wouldn't even notice the interruption.
 
-### Server Crash Recovery in Cloud Computing
-In cloud environments, server crashes can result in significant data loss and downtime. Imagine you're running a critical web application processing thousands of user transactions. During peak traffic, your server suddenly crashes due to hardware failure or power outage. Without C/R, you'd lose all in-memory session data, active connections, and processing state - forcing users to restart their workflows and potentially losing business.
 
-With C/R, you can:
-- **Automatic Recovery**: Periodically checkpoint your application state and automatically restore it on a backup server when the primary fails
-- **Seamless Failover**: Users experience minimal disruption as the application resumes exactly where it left off, maintaining session data and transaction states  
-- **Data Preservation**: All in-memory caches, user sessions, and processing queues are preserved across server failures
 
 ## What is Checkpoint/Restore:
 
