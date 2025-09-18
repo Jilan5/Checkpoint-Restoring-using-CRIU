@@ -1,7 +1,15 @@
-# Checkpoint/Restore (C/R): Saving and Resuming Program State
+# CRIU Checkpoint/Restore Lab
 
-Intorduction:
-Objectives: bullet points
+## Introduction
+This lab introduces Checkpoint/Restore (C/R) technology using CRIU - a powerful Linux utility that allows you to freeze running processes and resume them later. You'll learn both the theoretical concepts and gain hands-on experience with practical checkpoint/restore operations.
+
+## Lab Objectives
+- Understand the fundamental concepts of checkpoint/restore technology
+- Learn how CRIU works internally to capture and restore process state
+- Explore real-world use cases including fault tolerance and server maintenance
+- Practice checkpointing and restoring a running Python process
+- Analyze the files generated during checkpoint operations
+- Experience seamless process migration and state preservation
 
 ## Why Do We Need C/R?
 
@@ -29,14 +37,14 @@ When you checkpoint a process, the system captures:
 - Open files and network connections
 - Process hierarchy and relationships
 - Current execution point
-<img width="1222" height="782" alt="CR 2 drawio" src="https://github.com/user-attachments/assets/1ac693f2-acf7-4a97-b1a0-fa7ab8d53d17" />
+<img width="1307" height="842" alt="C_R criu drawio (5)" src="https://github.com/user-attachments/assets/60e4628b-c6e1-4b26-9621-658e7a88a86c" />
 
 
 ## CRIU: The Checkpoint/Restore Tool
 
 **CRIU** (Checkpoint/Restore In Userspace) is a Linux utility that implements C/R functionality. Unlike kernel-based solutions, CRIU works entirely in userspace, making it more portable and easier to use.
 
-### How CRIU Works Internally
+### CRIU Checkpointing Process
 
 #### 1. Process Discovery and Freezing
 When you run `criu dump -t PID`, CRIU first freezes the target process using Linux's `ptrace()` system call or cgroup freezer. This prevents the process from changing state during checkpointing.
@@ -96,9 +104,9 @@ checkpoint_dir/
 ├── fs-1234.img          # Filesystem info (cwd, root)
 └── stats-dump           # Checkpoint statistics
 ```
-<img width="1081" height="721" alt="CRIU internals drawio" src="https://github.com/user-attachments/assets/57b38392-6304-4047-9e11-ced4eeb07f2c" />
+<img width="1412" height="542" alt="C_R criu drawio (7)" src="https://github.com/user-attachments/assets/07105870-57ff-4803-8b6d-efe7095dbbe9" />
 
-### Restoration Process
+### CRIU Restore Process
 
 During `criu restore`:
 
@@ -117,7 +125,8 @@ During `criu restore`:
 4. **CPU State Restoration**: Use `ptrace(PTRACE_SETREGS)` to restore all registers
 
 5. **Resume Execution**: The process continues from the exact instruction where it was checkpointed
-<img width="821" height="551" alt="criu restore drawio" src="https://github.com/user-attachments/assets/9e150c77-d94a-4dc3-9362-024328b241b3" />
+
+<img width="1509" height="602" alt="C_R criu drawio (6)" src="https://github.com/user-attachments/assets/fe86cef7-4deb-499c-acb4-cf4ba8c5cb6c" />
 
 ### Key Technical Challenges CRIU Solves
 
